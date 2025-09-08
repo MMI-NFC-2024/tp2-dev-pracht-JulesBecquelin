@@ -12,25 +12,40 @@ import GraphicSpecies from "../components/GraphicSpecies.astro";
         <a href="/species/Adelie" class="hover:underline">Adelie</a>
         <a href="/species/Gentoo" class="hover:underline">Gentoo</a>
         <a href="/species/Chinstrap" class="hover:underline">Chinstrap</a>
-        <a href="/test-iframe" class="hover:underline">Test Iframe</a>
-        <a href="/single-page-anchors" class="font-bold underline">Page avec ancres</a>
+        <a href="/test-inframe" class="hover:underline">Test Iframe</a>
+        <a href="/single-page-anchors" class="font-bold underline"
+          >Page avec ancres</a
+        >
       </div>
     </div>
   </nav>
 
   <main class="container mx-auto px-4">
-    <h1 class="text-3xl font-bold mb-6 text-center">Toutes les espèces - Navigation par ancres</h1>
-    
+    <h1 class="text-3xl font-bold mb-6 text-center">
+      Toutes les espèces - Navigation par ancres
+    </h1>
+
     <!-- Menu d'ancres -->
     <div class="mb-8">
-      <div class="flex justify-center space-x-4 bg-gray-100 p-4 rounded-lg sticky top-4 z-10">
-        <a href="#adelie" class="anchor-link bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+      <div
+        class="flex justify-center space-x-4 bg-gray-100 p-4 rounded-lg sticky top-4 z-10"
+      >
+        <a
+          href="#adelie"
+          class="anchor-link bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
           Adelie
         </a>
-        <a href="#gentoo" class="anchor-link bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+        <a
+          href="#gentoo"
+          class="anchor-link bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        >
           Gentoo
         </a>
-        <a href="#chinstrap" class="anchor-link bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+        <a
+          href="#chinstrap"
+          class="anchor-link bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
+        >
           Chinstrap
         </a>
       </div>
@@ -39,13 +54,13 @@ import GraphicSpecies from "../components/GraphicSpecies.astro";
     <!-- Container du slider -->
     <div class="slider-container">
       <div class="slider-wrapper" id="slider">
-        
         <!-- Section Adelie -->
         <section class="slide" id="adelie">
           <GraphicSpecies species="Adelie" />
           <div class="text-center mt-4 mb-8">
             <p class="text-gray-600">
-              Les penguins Adelie sont les plus petits des trois espèces étudiées.
+              Les penguins Adelie sont les plus petits des trois espèces
+              étudiées.
             </p>
           </div>
         </section>
@@ -55,7 +70,8 @@ import GraphicSpecies from "../components/GraphicSpecies.astro";
           <GraphicSpecies species="Gentoo" />
           <div class="text-center mt-4 mb-8">
             <p class="text-gray-600">
-              Les penguins Gentoo sont les plus grands des trois espèces étudiées.
+              Les penguins Gentoo sont les plus grands des trois espèces
+              étudiées.
             </p>
           </div>
         </section>
@@ -65,11 +81,11 @@ import GraphicSpecies from "../components/GraphicSpecies.astro";
           <GraphicSpecies species="Chinstrap" />
           <div class="text-center mt-4 mb-8">
             <p class="text-gray-600">
-              Les penguins Chinstrap sont reconnaissables à leur ligne mentale caractéristique.
+              Les penguins Chinstrap sont reconnaissables à leur ligne mentale
+              caractéristique.
             </p>
           </div>
         </section>
-
       </div>
     </div>
   </main>
@@ -105,7 +121,7 @@ import GraphicSpecies from "../components/GraphicSpecies.astro";
 
     .anchor-link:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     /* Indicateur actif */
@@ -115,52 +131,52 @@ import GraphicSpecies from "../components/GraphicSpecies.astro";
   </style>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const slider = document.getElementById('slider');
-      const anchorLinks = document.querySelectorAll('.anchor-link');
-      
+    document.addEventListener("DOMContentLoaded", function () {
+      const slider = document.getElementById("slider");
+      const anchorLinks = document.querySelectorAll(".anchor-link");
+
       // Fonction pour déplacer le slider
       function moveSlider(index) {
         const translateX = -(index * 33.333); // -33.333% par slide
         slider.style.transform = `translateX(${translateX}%)`;
-        
+
         // Mettre à jour les liens actifs
         anchorLinks.forEach((link, i) => {
-          link.classList.toggle('active', i === index);
+          link.classList.toggle("active", i === index);
         });
       }
 
       // Ajouter les event listeners aux liens
       anchorLinks.forEach((link, index) => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener("click", function (e) {
           e.preventDefault();
           moveSlider(index);
-          
+
           // Faire défiler vers le haut du container si nécessaire
-          document.querySelector('.slider-container').scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+          document.querySelector(".slider-container").scrollIntoView({
+            behavior: "smooth",
+            block: "start",
           });
         });
       });
 
       // Initialiser le premier slide comme actif
       if (anchorLinks.length > 0) {
-        anchorLinks[0].classList.add('active');
+        anchorLinks[0].classList.add("active");
       }
 
       // Observer les changements de hash dans l'URL
       function handleHashChange() {
         const hash = window.location.hash.substring(1);
-        const index = ['adelie', 'gentoo', 'chinstrap'].indexOf(hash);
+        const index = ["adelie", "gentoo", "chinstrap"].indexOf(hash);
         if (index !== -1) {
           moveSlider(index);
         }
       }
 
       // Écouter les changements de hash
-      window.addEventListener('hashchange', handleHashChange);
-      
+      window.addEventListener("hashchange", handleHashChange);
+
       // Gérer le hash initial
       handleHashChange();
     });
